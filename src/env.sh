@@ -1,0 +1,1 @@
+export SHRM_LOCATION=$HOME/.shrm
