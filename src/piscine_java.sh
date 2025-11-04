@@ -63,18 +63,18 @@ piscinejava_pull() {
     content=$(curl https://learn.zone01oujda.ma/api/content/root/01-edu_module/content/$converted/README.md)
     
     #(ai-code) Extract Expected Functions block (between ```java after "Expected Functions" and the next ```)
-    awk '
+    echo "$content" | awk '
     /^### Expected Functions/ { in_section=1; next }
     /^```java/ && in_section && !in_code { in_code=1; next }
     /^```/ && in_section && in_code { in_code=0; in_section=0; next }
     in_section && in_code { print }
-    ' <<< "$content" > $2/$1.java
+    ' > $2/$1.java
 
     #(ai-code) Extract Usage code block (the ```java one that follows "Usage")
-    awk '
+    echo "$content" | awk '
     /^### Usage/ { in_section=1; next }
     /^```java/ && in_section && !in_code { in_code=1; next }
     /^```/ && in_section && in_code { in_code=0; in_section=0; next }
     in_section && in_code { print }
-    ' <<< "$content" > $2/ExerciseRunner.java
+    ' > $2/ExerciseRunner.java
 }
