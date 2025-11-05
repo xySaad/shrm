@@ -19,7 +19,7 @@ else
     git clone https://github.com/xySaad/shrm $SHRM_LOCATION
 fi
 
-if [ ! -n "$SHRM_LOCATION"]; then
+if [ ! -n "$SHRM_LOCATION" ]; then
     startup_files="$HOME/.bashrc $HOME/.bash_profile"    
     for file in $startup_files; do
         echo '. "$SHRM_LOCATION/index.sh"' >> $file; 
