@@ -1,10 +1,6 @@
-
-if [ -n "$SHRM_LOCATION" ]; then
-    echo "shrm scripts already exists at $SHRM_LOCATION";
-    exit 0;
+if [ ! -n "$SHRM_LOCATION" ]; then
+    SHRM_LOCATION="$HOME/.shrm"
 fi
-
-export SHRM_LOCATION=$HOME/.shrm
 
 if [ -d "$SHRM_LOCATION" ]; then
     echo "shrm already installed at $SHRM_LOCATION.";
@@ -16,22 +12,21 @@ if [ -d "$SHRM_LOCATION" ]; then
         git -C "$SHRM_LOCATION" pull
     else
         echo "Skipping update."
-        return 0;
+        exit 0;
     fi
         
 else 
     git clone https://github.com/xySaad/shrm $SHRM_LOCATION
 fi
 
-startup_files="$HOME/.bashrc $HOME/.bash_profile"
+if [ ! -n "$SHRM_LOCATION"]; then
+    startup_files="$HOME/.bashrc $HOME/.bash_profile"    
+    for file in $startup_files; do
+        echo '. "$SHRM_LOCATION/index.sh"' >> $file; 
+    done
+fi
 
-add_to_shell() {
-    echo \
-    "# written by shrm
-    . $SHRM_LOCATION/src/index.sh
-    " >> $1;
-}
-
-for file in $startup_files; do add_to_shell $file; done
-
-. $SHRM_LOCATION/src/index.sh
+echo
+echo "Installation complete!"
+echo "Run the following command to apply changes now:"
+echo '  . "$HOME/.shrm/src/index.sh"'
