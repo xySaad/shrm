@@ -4,7 +4,7 @@ if [ ! -n "$SHRM_LOCATION" ]; then
     startup_files="$HOME/.bashrc $HOME/.bash_profile"    
     for file in $startup_files; do
         echo 'export SHRM_LOCATION="$HOME/.shrm"' >> $file;
-        echo '. "$SHRM_LOCATION/index.sh"' >> $file; 
+        echo '. "$SHRM_LOCATION/src/index.sh"' >> $file; 
     done
 fi
 
