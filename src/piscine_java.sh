@@ -35,9 +35,14 @@ piscinejava_new() {
  mkdir $root$1
 
  piscinejava_pull $1 $root$1
- 
+
  code $root$1/ExerciseRunner.java
  code $root$1/$1.java
+ 
+ shift
+ for file in "$@"; do
+    touch "$root/$file"
+ done
 }
 
 gacp() {
