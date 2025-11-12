@@ -19,7 +19,7 @@ piscinejava_test() {
     
     echo "runing docker tests..."
 
-    sudo docker run --rm \
+    docker run --rm \
     -e EXERCISE=$exercise_name \
     -v $root:/app/student \
     ghcr.io/01-edu/test-java
